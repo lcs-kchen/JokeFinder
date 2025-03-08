@@ -44,6 +44,16 @@ struct FavouriteJokesView: View {
                                 Text(currentJoke.punchline ?? "")
                                     .italic()
                             }
+                            .swipeActions {
+                                
+                                // Delete
+                                Button("Delete", role: .destructive) {
+                                    withAnimation {
+                                        viewModel.delete(currentJoke)
+                                    }
+                                }
+                                
+                            }
                         }
                         .listStyle(.plain)
                         
