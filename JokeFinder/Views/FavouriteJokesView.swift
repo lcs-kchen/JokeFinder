@@ -52,6 +52,15 @@ struct FavouriteJokesView: View {
                                         viewModel.delete(currentJoke)
                                     }
                                 }
+                                // Share
+                                ShareLink(
+                                    "Share",
+                                    item: currentJoke.setupAndPunchline,
+                                    preview: SharePreview(
+                                        "Share Joke",
+                                        image: Image("ShareJokeImage")
+                                    )
+                                )
                                 
                             }
                         }
