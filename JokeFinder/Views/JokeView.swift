@@ -17,6 +17,9 @@ struct JokeView: View {
     // Controls punchline visibility
     @State var punchlineOpacity = 0.0
     
+    // Controls whether save button is enabled
+    @State var jokeHasBeenSaved = false
+    
     // Starts a timer to wait on revealing punchline
     @State var punchlineTimer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
@@ -52,6 +55,25 @@ struct JokeView: View {
                 .font(.title)
                 .multilineTextAlignment(.center)
                 
+                
+                Button {
+                    
+                    // Save the joke
+                    viewModel.saveJoke()
+                    
+                    // Disable this button until next joke is loaded
+                    jokeHasBeenSaved = true
+                    
+                } label: {
+                    Text("Save for later")
+                }
+                .tint(.green)
+                .buttonStyle(.borderedProminent)
+                .opacity(buttonOpacity)
+                .padding(.bottom, 20)
+                .disabled(jokeHasBeenSaved)
+                
+                
                 Button {
                  
                     // Hide punchline and button
@@ -69,6 +91,9 @@ struct JokeView: View {
                     // Restart timers
                     punchlineTimer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
                     buttonTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+                    
+                    // Enable save button again
+                    jokeHasBeenSaved = false
                     
                 } label: {
                  
